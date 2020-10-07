@@ -1,0 +1,26 @@
+{% extends 'nav.html' %}
+
+{% block title %}
+{{product.book_name}}
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <img src="/media/{{product.book_img}}" width="233px" height="385px">
+            </div>
+            <div class="row">
+                <button class="btn btn-primary mx-3 mt-2">Buy Now</button>
+                <button class="btn btn-primary mt-2">Add To Cart</button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h1>{{product.book_name}}</h1>
+            <h3><b>$.{{product.book_price}} </b></h3> <br>
+            <i><h6>{{product.book_long_desc}}</h6></i>
+        </div>
+    </div>
+</div>
+{% endblock %}

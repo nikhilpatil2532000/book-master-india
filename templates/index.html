@@ -1,0 +1,220 @@
+{% extends 'nav.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<nav class="mx-2 my-2 mt-2 mb-2">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+            aria-controls="nav-home" aria-selected="true">STORY</a>
+        <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            aria-controls="nav-profile" aria-selected="false">HISTORICAL</a>
+        <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+            aria-controls="nav-contact" aria-selected="false">BIOGRAPHY</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div id="story" class="row mx-2 my-2 mt-2 mb-2">
+            {% for i in Story_books %}
+            <div class="card shadow mx-2 my-2 mt-2 mb-2" style="width: 30rem;">
+                <div class="inner">
+                    <img src="{{i.book_img.url}}" class="card-img-top" alt="..." style="height: 30rem;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" id="namestory_book{{i.id}}">{{i.book_name}}</h5>
+                    <p class="card-text">{{i.book_short_desc}}</p>
+                    <p class="card-text"><b>$ {{i.book_price}}</b></p>
+                    {% if i.book_offers %}
+                    <p class="card-text" style="background-color: cyan;"><span>Best Offer</span></p>
+                    {% endif %}
+                    <span id="divstory_book{{i.id}}" class="divstory_book">
+                        <button id="story_book{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+                    </span>
+                    <a id="story_book_qv{{i.id}}" href="/productview/story_book/{{i.id}}"
+                        class="btn btn-primary cart mx-2">Quick view</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="row mx-2 my-2 mt-2 mb-2">
+            {% for i in Historical_books %}
+            <div class="card shadow mx-2 my-2 mt-2 mb-2" style="width: 22rem;">
+                <div class="inner">
+                    <img src="{{i.book_img.url}}" class="card-img-top" alt="..." style="height: 30rem;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" id="namehistorical_book{{i.id}}">{{i.book_name}}</h5>
+                    <p class="card-text">{{i.book_short_desc}}</p>
+                    <p class="card-text"><b>$ {{i.book_price}}</b></p>
+                    {% if i.book_offers %}
+                    <p class="card-text" style="background-color: cyan;"><span>Best Offer</span></p>
+                    {% endif %}
+                    <span id="divhistorical_book{{i.id}}" class="divhistorical_book">
+                        <button id="historical_book{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+                    </span>
+                    <a id="historical_book_qv{{i.id}}" href="/productview/historical_book/{{i.id}}"
+                        class="btn btn-primary cart mx-2">Quick view</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <div class="row mx-2 my-2 mt-2 mb-2">
+            {% for i in Biography_books %}
+            <div class="card shadow mx-2 my-2 mt-2 mb-2" style="width: 30rem;">
+                <div class="inner">
+                    <img src="{{i.book_img.url}}" class="card-img-top" alt="..." style="height: 30rem;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" id="namebiography_book{{i.id}}">{{i.book_name}}</h5>
+                    <p class="card-text">{{i.book_short_desc}}</p>
+                    <p class="card-text"><b>$ {{i.book_price}}</b></p>
+                    {% if i.book_offers %}
+                    <p class="card-text" style="background-color: cyan;"><span>Best Offer</span></p>
+                    {% endif %}
+                    <span id="divbiography_book{{i.id}}" class="divbiography_book">
+                        <button id="biography_book{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+                    </span>
+                    <a id="biography_book_qv{{i.id}}" href="/productview/biography_book/{{i.id}}"
+                        class="btn btn-primary cart mx-2">Quick view</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    if (localStorage.getItem('new_cart') == null) {
+        var new_cart = {};
+    }
+    else {
+        new_cart = JSON.parse(localStorage.getItem('new_cart'));
+        updateCart(new_cart);
+    }
+
+    $('.divstory_book').on('click', 'button.cart', function () {
+        var idstr = this.id.toString();
+        if (new_cart[idstr] != undefined) {
+            qty = new_cart[idstr][0] + 1;
+        }
+        else {
+            qty = 1;
+            name = document.getElementById('name'+idstr).innerHTML;
+            new_cart[idstr] = [qty,name];
+        }
+        updateCart(new_cart);
+    });
+
+    $('.divhistorical_book').on('click', 'button.cart', function () {
+        var idstr = this.id.toString();
+        if (new_cart[idstr] != undefined) {
+            qty = new_cart[idstr][0] + 1;
+        }
+        else {
+            qty = 1;
+            name = document.getElementById('name'+idstr).innerHTML;
+            new_cart[idstr] = [qty,name];
+        }
+        updateCart(new_cart);
+    });
+
+    $('.divbiography_book').on('click', 'button.cart', function () {
+        var idstr = this.id.toString();
+        if (new_cart[idstr] != undefined) {
+            qty = new_cart[idstr][0] + 1;
+        }
+        else {
+            qty = 1;
+            name = document.getElementById('name'+idstr).innerHTML;
+            new_cart[idstr] = [qty,name];
+        }
+        updateCart(new_cart);
+    });
+
+    $('#popcart').popover();
+    updatePopover(new_cart);
+    function updatePopover(new_cart) {
+        var popStr = "";
+        popStr = popStr + "<h5> Your selected items list is here... check it out !!!</h5><div class='mx-2 my-2'>";
+        var i = 1;
+        for (var item in new_cart) {
+            popStr = popStr + "<b>" + i + "</b>. ";
+            popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + new_cart[item][0] + '<br>';
+            i = i + 1;
+        }
+        popStr = popStr + "</div> <a href='/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id='clearCart'>Clear Cart</button>";
+        document.getElementById('popcart').setAttribute('data-content', popStr);
+        $('#popcart').popover('show');
+    }
+    function clearCart() {
+        new_cart = JSON.parse(localStorage.getItem('new_cart'));
+        for (var item in new_cart) {
+            console.log(item);
+            document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>'
+        }
+        localStorage.clear();
+        new_cart = {};
+        updateCart(new_cart);
+    }
+
+    function updateCart(new_cart) {
+        var sum = 0;
+        for (var item in new_cart) {
+            sum = sum + new_cart[item][0];
+            document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + new_cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+        }
+        localStorage.setItem('new_cart', JSON.stringify(new_cart));
+        document.getElementById('cart').innerHTML = sum;
+        updatePopover(new_cart);
+    }
+    $('.divstory_book').on("click", "button.minus", function () {
+        a = this.id.slice(15,);
+        new_cart['story_book' + a][0] = new_cart['story_book' + a][0] - 1;
+        new_cart['story_book' + a][0] = Math.max(0, new_cart['story_book' + a][0]);
+        document.getElementById('valstory_book' + a).innerHTML = new_cart['story_book' + a][0];
+        updateCart(new_cart);
+    });
+    $('.divstory_book').on("click", "button.plus", function () {
+        a = this.id.slice(14,);
+        new_cart['story_book' + a][0] = new_cart['story_book' + a][0] + 1;
+        document.getElementById('valstory_book' + a).innerHTML = new_cart['story_book' + a][0];
+        updateCart(new_cart);
+    });
+    $('.divhistorical_book').on("click", "button.minus", function () {
+        a = this.id.slice(20,);
+        new_cart['historical_book' + a][0] = new_cart['historical_book' + a][0] - 1;
+        new_cart['historical_book' + a][0] = Math.max(0, new_cart['historical_book' + a][0]);
+        document.getElementById('valhistorical_book' + a).innerHTML = new_cart['historical_book' + a][0];
+        updateCart(new_cart);
+    });
+    $('.divhistorical_book').on("click", "button.plus", function () {
+        a = this.id.slice(19,);
+        new_cart['historical_book' + a][0] = new_cart['historical_book' + a][0] + 1;
+        document.getElementById('valhistorical_book' + a).innerHTML = new_cart['historical_book' + a][0];
+        updateCart(new_cart);
+    });
+
+
+    $('.divbiography_book').on("click", "button.minus", function () {
+        a = this.id.slice(19,);
+        new_cart['biography_book' + a][0] = new_cart['biography_book' + a][0] - 1;
+        new_cart['biography_book' + a][0] = Math.max(0, new_cart['biography_book' + a][0]);
+        document.getElementById('valbiography_book' + a).innerHTML = new_cart['biography_book' + a][0];
+        updateCart(new_cart);
+    });
+    $('.divbiography_book').on("click", "button.plus", function () {
+        a = this.id.slice(18,);
+        new_cart['biography_book' + a][0] = new_cart['biography_book' + a][0] + 1;
+        document.getElementById('valbiography_book' + a).innerHTML = new_cart['biography_book' + a][0];
+        updateCart(new_cart);
+    });
+
+</script>
+{% endblock %}
