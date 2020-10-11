@@ -21,8 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    'SECRET_KEY', '@#dzu&91fqwy+$@g%b4j5@%$gmf91*7^%qdno-09qo)ypfkj8e')
+SECRET_KEY ='@#dzu&91fqwy+$@g%b4j5@%$gmf91*7^%qdno-09qo)ypfkj8e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -81,22 +80,22 @@ WSGI_APPLICATION = 'College_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'college_project',
-#         'USER' : 'postgres',
-#         'PASSWORD' : '1234',
-#         'HOST' : 'localhost'
-#     }
-# }
+ DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'college_project',
+         'USER' : 'postgres',
+         'PASSWORD' : '1234',
+         'HOST' : 'localhost'
+     }
+ }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': 'mydatabase',
+#   }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
