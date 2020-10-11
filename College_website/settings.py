@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get(
 # DEBUG = True
 DEBUG = 'False'
 
-ALLOWED_HOSTS = ['book-master-india.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['book-master-india.herokuapp.com']
 
 
 # Application definition
